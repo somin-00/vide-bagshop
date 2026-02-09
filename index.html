@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIDE - 가방 쇼핑몰</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 네비게이션 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h1>VIDE</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">홈</a></li>
+                <li><a href="#products">상품</a></li>
+                <li><a href="#about">소개</a></li>
+                <li><a href="#contact">문의</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="search-btn">🔍</button>
+                <button class="cart-btn">🛒</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 메인 컨텐츠 -->
+    <main>
+        <!-- MD 추천 상품 -->
+        <section class="featured-section">
+            <div class="container">
+                <h2 class="section-title">MD 추천 상품</h2>
+                <div class="featured-product">
+                    <div class="threejs-container" id="threejs-container">
+                        <!-- Three.js 3D 가방이 여기에 표시됩니다 -->
+                    </div>
+                    <div class="product-info">
+                        <h3>프리미엄 레더 백팩</h3>
+                        <p class="price">₩299,000</p>
+                        <p class="description">고품질 가죽으로 제작된 클래식한 디자인의 백팩입니다. 비즈니스와 일상생활 모두에 완벽합니다.</p>
+                        
+                        <!-- 색상 선택 -->
+                        <div class="color-selector">
+                            <h4>색상 선택</h4>
+                            <div class="color-options">
+                                <button class="color-btn active" data-color="#8B4513" style="background-color: #8B4513;"></button>
+                                <button class="color-btn" data-color="#000000" style="background-color: #000000;"></button>
+                                <button class="color-btn" data-color="#4169E1" style="background-color: #4169E1;"></button>
+                                <button class="color-btn" data-color="#808080" style="background-color: #808080;"></button>
+                            </div>
+                        </div>
+                        
+                        <button class="buy-btn">구매하기</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 인기상품 목록 -->
+        <section class="popular-section">
+            <div class="container">
+                <h2 class="section-title">인기상품</h2>
+                <div class="slider-container">
+                    <div class="slider-wrapper">
+                        <button class="slider-btn prev-btn" id="prevBtn">‹</button>
+                        <div class="product-slider" id="productSlider">
+                            <!-- 상품 아이템들이 JavaScript로 동적으로 생성됩니다 -->
+                        </div>
+                        <button class="slider-btn next-btn" id="nextBtn">›</button>
+                    </div>
+                    <button class="more-btn" id="moreBtn">더보기</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Three.js 라이브러리 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
