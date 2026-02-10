@@ -1,6 +1,8 @@
 // Three.js 3D 가방 구현
 let scene, camera, renderer, bag, controls;
 let currentColor = '#8B4513';
+let originalMaterials = new Map(); // 원본 재질 저장
+let isLoading = false;
 
 // 인기상품 데이터
 const popularProducts = [
@@ -20,9 +22,18 @@ let showingMore = false;
 
 // Three.js 초기화
 function initThreeJS() {
+    console.log('Three.js 초기화 시작...');
+    
     const container = document.getElementById('threejs-container');
+    if (!container) {
+        console.error('threejs-container를 찾을 수 없습니다.');
+        return;
+    }
+    
     const width = container.clientWidth;
     const height = container.clientHeight;
+    
+    console.log('컨테이너 크기:', width, 'x', height);
 
     // 씬 생성
     scene = new THREE.Scene();
@@ -48,25 +59,93 @@ function initThreeJS() {
     directionalLight.castShadow = true;
     scene.add(directionalLight);
 
-    // 가방 모델 생성 (간단한 형태로)
-    createBagModel();
+    // 3D 가방 모델 로드
+    loadBagModel();
 
     // OrbitControls 설정
-    controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
-    controls.enableZoom = true;
-    controls.autoRotate = true;
-    controls.autoRotateSpeed = 2;
+    if (typeof THREE.OrbitControls !== 'undefined') {
+        controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.enableZoom = true;
+        controls.autoRotate = true;
+        controls.autoRotateSpeed = 2;
+    } else {
+        console.error('OrbitControls를 찾을 수 없습니다.');
+    }
 
     // 애니메이션 루프
     animate();
 
     // 윈도우 리사이즈 처리
     window.addEventListener('resize', onWindowResize);
+    
+    console.log('Three.js 초기화 완료');
 }
 
-// 가방 모델 생성
+// 3D 가방 모델 로드
+function loadBagModel() {
+    console.log('3D 모델 로드 시작...');
+    
+    // GLTFLoader가 있는지 확인
+    if (typeof THREE.GLTFLoader === 'undefined') {
+        console.error('GLTFLoader를 찾을 수 없습니다. 대체 모델을 생성합니다.');
+        createFallbackModel();
+        return;
+    }
+    
+    if (isLoading) {
+        console.log('이미 모델을 로드 중입니다.');
+        return;
+    }
+    
+    isLoading = true;
+    const loader = new THREE.GLTFLoader();
+    
+    loader.load(
+        'assets/base.glb',
+        function (gltf) {
+            console.log('3D 모델 로드 성공:', gltf);
+            bag = gltf.scene;
+            
+            // 모델 크기 조정 및 위치 설정
+            bag.scale.set(1.5, 1.5, 1.5);
+            bag.position.set(0, -0.5, 0);
+            
+            // 원본 재질 저장
+            bag.traverse((child) => {
+                if (child.isMesh) {
+                    originalMaterials.set(child, child.material.clone());
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                    console.log('메시 발견:', child.name);
+                }
+            });
+            
+            scene.add(bag);
+            console.log('3D 모델이 성공적으로 로드되었습니다.');
+            isLoading = false;
+        },
+        function (xhr) {
+            const progress = (xhr.loaded / xhr.total * 100);
+            console.log(progress.toFixed(1) + '% 로드됨');
+        },
+        function (error) {
+            console.error('3D 모델 로드 중 오류 발생:', error);
+            console.log('대체 모델을 생성합니다.');
+            createFallbackModel();
+            isLoading = false;
+        }
+    );
+}
+
+// 대체 모델 생성 (오류 발생 시)
+function createFallbackModel() {
+    console.log('대체 모델을 생성합니다.');
+    createBagModel();
+}
+
+// 기본 가방 모델 생성 (간단한 형태)
 function createBagModel() {
     const bagGroup = new THREE.Group();
 
@@ -134,9 +213,26 @@ function createBagModel() {
 function changeBagColor(color) {
     currentColor = color;
     if (bag) {
-        bag.children.forEach(child => {
-            if (child.material && child !== bag.children[1] && child !== bag.children[2] && child !== bag.children[3]) {
-                child.material.color.set(color);
+        bag.traverse((child) => {
+            if (child.isMesh && originalMaterials.has(child)) {
+                // 원본 재질을 기반으로 새 재질 생성
+                const originalMaterial = originalMaterials.get(child);
+                const newMaterial = originalMaterial.clone();
+                
+                // 색상 변경
+                if (newMaterial.color) {
+                    newMaterial.color.set(color);
+                }
+                
+                // 메탈릭 및 러프니스 조정
+                if (newMaterial.metalness !== undefined) {
+                    newMaterial.metalness = 0.1;
+                }
+                if (newMaterial.roughness !== undefined) {
+                    newMaterial.roughness = 0.7;
+                }
+                
+                child.material = newMaterial;
             }
         });
     }
