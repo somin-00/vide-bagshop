@@ -41,7 +41,8 @@ function initThreeJS() {
 
     // 카메라 설정
     camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-    camera.position.set(0, 0, 5);
+    camera.position.set(0, 0, 5); // 적절한 거리로 복원
+    camera.lookAt(0, 0, 0);
 
     // 렌더러 설정
     renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -70,6 +71,8 @@ function initThreeJS() {
         controls.enableZoom = true;
         controls.autoRotate = true;
         controls.autoRotateSpeed = 2;
+        controls.target.set(0, 0, 0); // 중앙을 목표점으로 설정
+        controls.update(); // 즉시 업데이트
     } else {
         console.error('OrbitControls를 찾을 수 없습니다.');
     }
@@ -109,8 +112,8 @@ function loadBagModel() {
             bag = gltf.scene;
             
             // 모델 크기 조정 및 위치 설정
-            bag.scale.set(1.5, 1.5, 1.5);
-            bag.position.set(0, -0.5, 0);
+            bag.scale.set(2.5, 2.5, 2.5); // 적절한 크기로 확대
+            bag.position.set(0, -2.0, 0); // y축 기준으로 조금만 더 아래로 이동
             
             // 원본 재질 저장
             bag.traverse((child) => {
@@ -158,6 +161,8 @@ function createBagModel() {
     const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
     body.castShadow = true;
     body.receiveShadow = true;
+    body.position.set(0, 0, 0); // 중앙에 위치
+    body.scale.set(2.5, 2.5, 2.5); // 적절한 크기로 확대
     bagGroup.add(body);
 
     // 가방 핸들
@@ -167,14 +172,16 @@ function createBagModel() {
         shininess: 100
     });
     const handle1 = new THREE.Mesh(handleGeometry, handleMaterial);
-    handle1.position.set(-0.5, 1.5, 0);
+    handle1.position.set(-0.5, 1.25, 0); // 중앙 기준으로 조정
     handle1.rotation.z = Math.PI / 2;
+    handle1.scale.set(2.5, 2.5, 2.5); // 적절한 크기로 확대
     handle1.castShadow = true;
     bagGroup.add(handle1);
 
     const handle2 = new THREE.Mesh(handleGeometry, handleMaterial);
-    handle2.position.set(0.5, 1.5, 0);
+    handle2.position.set(0.5, 1.25, 0); // 중앙 기준으로 조정
     handle2.rotation.z = Math.PI / 2;
+    handle2.scale.set(2.5, 2.5, 2.5); // 적절한 크기로 확대
     handle2.castShadow = true;
     bagGroup.add(handle2);
 
@@ -185,7 +192,8 @@ function createBagModel() {
         shininess: 200
     });
     const zipper = new THREE.Mesh(zipperGeometry, zipperMaterial);
-    zipper.position.set(0, 1.25, 0.51);
+    zipper.position.set(0, 0, 0.51); // 중앙 기준으로 조정
+    zipper.scale.set(2.5, 2.5, 2.5); // 적절한 크기로 확대
     zipper.castShadow = true;
     bagGroup.add(zipper);
 
@@ -196,12 +204,14 @@ function createBagModel() {
         shininess: 100
     });
     const pocket1 = new THREE.Mesh(pocketGeometry, pocketMaterial);
-    pocket1.position.set(-0.5, 0.5, 0.51);
+    pocket1.position.set(-0.5, -0.75, 0.51); // 중앙 기준으로 조정
+    pocket1.scale.set(2.5, 2.5, 2.5); // 적절한 크기로 확대
     pocket1.castShadow = true;
     bagGroup.add(pocket1);
 
     const pocket2 = new THREE.Mesh(pocketGeometry, pocketMaterial);
-    pocket2.position.set(0.5, 0.5, 0.51);
+    pocket2.position.set(0.5, -0.75, 0.51); // 중앙 기준으로 조정
+    pocket2.scale.set(2.5, 2.5, 2.5); // 적절한 크기로 확대
     pocket2.castShadow = true;
     bagGroup.add(pocket2);
 
@@ -248,6 +258,14 @@ function animate() {
     
     if (bag) {
         bag.rotation.y += 0.005;
+        
+        // 위치와 확대가 적용되지 않을 경우 강제로 적용
+        if (bag.scale.x < 2.5) {
+            bag.scale.set(2.5, 2.5, 2.5);
+        }
+        if (bag.position.y > -1.8) {
+            bag.position.set(0, -2.0, 0);
+        }
     }
     
     renderer.render(scene, camera);

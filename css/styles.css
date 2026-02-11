@@ -8,22 +8,13 @@ body {
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
     color: #1a1a1a;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    background-attachment: fixed;
+    background: #ffffff;
     overflow-x: hidden;
 }
 
-/* 전체 배경 효과 */
+/* 전체 배경 효과 제거 */
 body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.03"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-    pointer-events: none;
-    z-index: -1;
+    display: none;
 }
 
 .container {
@@ -53,10 +44,7 @@ body::before {
 }
 
 .nav-logo h1 {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #1a1a1a;
     font-size: 2rem;
     font-weight: 800;
     letter-spacing: -0.5px;
@@ -70,7 +58,7 @@ body::before {
     left: 0;
     width: 0;
     height: 2px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #1a1a1a;
     transition: width 0.3s ease;
 }
 
@@ -101,14 +89,14 @@ body::before {
     left: 50%;
     width: 0;
     height: 2px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #1a1a1a;
     transition: all 0.3s ease;
     transform: translateX(-50%);
 }
 
 .nav-menu a:hover {
-    color: #667eea;
-    background: rgba(102, 126, 234, 0.1);
+    color: #1a1a1a;
+    background: rgba(0, 0, 0, 0.05);
 }
 
 .nav-menu a:hover::before {
@@ -121,8 +109,8 @@ body::before {
 }
 
 .nav-actions button {
-    background: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(102, 126, 234, 0.2);
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     font-size: 1.2rem;
     cursor: pointer;
     padding: 0.8rem;
@@ -139,17 +127,17 @@ body::before {
     left: 50%;
     width: 0;
     height: 0;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #1a1a1a;
     transition: all 0.3s ease;
     transform: translate(-50%, -50%);
     border-radius: 50%;
 }
 
 .nav-actions button:hover {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #1a1a1a;
     border-color: transparent;
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .nav-actions button:hover::before {
@@ -166,10 +154,7 @@ section {
     text-align: center;
     font-size: 3rem;
     margin-bottom: 3rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #1a1a1a;
     font-weight: 800;
     position: relative;
     letter-spacing: -1px;
@@ -182,19 +167,18 @@ section {
     left: 50%;
     width: 60px;
     height: 4px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #1a1a1a;
     border-radius: 2px;
     transform: translateX(-50%);
 }
 
 /* MD 추천 상품 */
 .featured-section {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
+    background: #ffffff;
     border-radius: 30px;
     margin: 2rem 20px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .featured-product {
@@ -208,23 +192,16 @@ section {
 
 .threejs-container {
     height: 500px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #f8f9fa;
     border-radius: 25px;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 25px 50px rgba(102, 126, 234, 0.3);
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .threejs-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
-    animation: shimmer 3s infinite;
+    display: none;
 }
 
 @keyframes shimmer {
@@ -235,10 +212,7 @@ section {
 .product-info h3 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #1a1a1a;
     font-weight: 800;
     letter-spacing: -0.5px;
 }
@@ -246,10 +220,7 @@ section {
 .price {
     font-size: 2rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #e74c3c;
     margin-bottom: 1rem;
     position: relative;
     display: inline-block;
@@ -262,7 +233,7 @@ section {
     left: 0;
     width: 100%;
     height: 2px;
-    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    background: #e74c3c;
     opacity: 0.3;
 }
 
@@ -323,7 +294,7 @@ section {
 }
 
 .buy-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #1a1a1a;
     color: white;
     border: none;
     padding: 1.2rem 2.5rem;
@@ -334,7 +305,7 @@ section {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     letter-spacing: 0.5px;
 }
 
@@ -352,8 +323,9 @@ section {
 }
 
 .buy-btn:hover {
+    background: #333333;
     transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .buy-btn:hover::before {
@@ -367,12 +339,11 @@ section {
 
 /* 인기상품 */
 .popular-section {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
+    background: #f8f9fa;
     border-radius: 30px;
     margin: 2rem 20px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .slider-container {
@@ -396,13 +367,12 @@ section {
 
 .product-card {
     min-width: 300px;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
+    background: #ffffff;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     position: relative;
 }
 
@@ -413,14 +383,14 @@ section {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, transparent 0%, rgba(102, 126, 234, 0.05) 100%);
+    background: rgba(0, 0, 0, 0.02);
     opacity: 0;
     transition: opacity 0.3s ease;
 }
 
 .product-card:hover {
     transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 
 .product-card:hover::before {
@@ -429,25 +399,18 @@ section {
 
 .product-image {
     height: 200px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #e9ecef;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 3rem;
-    color: white;
+    color: #6c757d;
     position: relative;
     overflow: hidden;
 }
 
 .product-image::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
-    animation: shimmer 3s infinite;
+    display: none;
 }
 
 .product-details {
@@ -478,18 +441,17 @@ section {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(102, 126, 234, 0.2);
+    background: #ffffff;
+    border: 2px solid rgba(0, 0, 0, 0.1);
     width: 55px;
     height: 55px;
     border-radius: 50%;
     font-size: 1.5rem;
     cursor: pointer;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     z-index: 10;
-    color: #667eea;
+    color: #1a1a1a;
     font-weight: bold;
 }
 
@@ -500,7 +462,7 @@ section {
     left: 50%;
     width: 0;
     height: 0;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #1a1a1a;
     transition: all 0.3s ease;
     transform: translate(-50%, -50%);
     border-radius: 50%;
@@ -508,11 +470,11 @@ section {
 }
 
 .slider-btn:hover {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #1a1a1a;
     border-color: transparent;
     color: white;
     transform: translateY(-50%) scale(1.1);
-    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
 .slider-btn:hover::before {
@@ -531,10 +493,9 @@ section {
 .more-btn {
     display: block;
     margin: 2rem auto 0;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
-    color: #667eea;
-    border: 2px solid #667eea;
+    background: #ffffff;
+    color: #1a1a1a;
+    border: 2px solid #1a1a1a;
     padding: 1rem 2.5rem;
     font-size: 1rem;
     font-weight: 600;
@@ -553,7 +514,7 @@ section {
     left: 50%;
     width: 0;
     height: 0;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #1a1a1a;
     transition: all 0.3s ease;
     transform: translate(-50%, -50%);
     border-radius: 50%;
@@ -561,11 +522,11 @@ section {
 }
 
 .more-btn:hover {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #1a1a1a;
     color: white;
     border-color: transparent;
     transform: translateY(-3px);
-    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
 .more-btn:hover::before {
